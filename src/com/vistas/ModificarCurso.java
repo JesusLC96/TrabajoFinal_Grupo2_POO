@@ -1,9 +1,8 @@
 package com.vistas;
 
-import com.clases.CategoriaCurso;
+import com.entities.Programa;
 
 import javax.swing.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ModificarCurso {
@@ -14,11 +13,11 @@ public class ModificarCurso {
     private JTextField textModPrecio;
     private JButton buttonActualizarCurso;
     private JFrame frame = new JFrame();
-    private List<CategoriaCurso> listatemporal;
+    private List<Programa> listatemporal;
     private int index;
     private PanelAdmin panelAdmin;
 
-    public ModificarCurso(List<CategoriaCurso> lista,int indice) {
+    public ModificarCurso(List<Programa> lista, int indice) {
         this.index = indice;
         this.listatemporal = lista;
 

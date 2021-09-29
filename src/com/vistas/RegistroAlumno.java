@@ -1,10 +1,8 @@
 package com.vistas;
 
-import com.clases.Alumno;
-import com.clases.Usuario;
+import com.entities.Alumno;
 
 import javax.swing.*;
-import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.List;
 

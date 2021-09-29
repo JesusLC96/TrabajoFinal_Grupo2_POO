@@ -1,6 +1,6 @@
 package com.vistas;
 
-import com.clases.Alumno;
+import com.entities.Alumno;
 
 import javax.swing.*;
 
