@@ -1,7 +1,6 @@
 package com.vistas;
 
-import com.clases.Alumno;
-import com.clases.Usuario;
+import com.entities.Alumno;
 
 import javax.swing.*;
 import java.util.ArrayList;

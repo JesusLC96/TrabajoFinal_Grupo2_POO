@@ -1,4 +1,4 @@
-package com.clases;
+package com.entities;
 
 public class Usuario {
     private String username;
