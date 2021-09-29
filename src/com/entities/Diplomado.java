@@ -1,7 +1,7 @@
 package com.entities;
 
 public class Diplomado extends Programa {
-    public Diplomado(String nombre, int cantidadMaximaCursos) {
-        super(nombre, cantidadMaximaCursos);
+    public Diplomado(String nombre, Linea linea, int cantidadMaximaCursos) {
+        super(nombre, linea, cantidadMaximaCursos);
     }
 }

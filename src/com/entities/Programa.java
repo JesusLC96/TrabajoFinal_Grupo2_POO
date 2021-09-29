@@ -3,12 +3,13 @@ package com.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Programa {
+public class Programa {
     private String nombre;
     private int cantidadMaximaCursos;
+    private Linea linea;
     private List<Curso> cursos;
 
-    public Programa(String nombre, int cantidadMaximaCursos) {
+    public Programa(String nombre, Linea linea, int cantidadMaximaCursos) {
         this.nombre = nombre;
         this.cantidadMaximaCursos = cantidadMaximaCursos;
         this.cursos = new ArrayList<>();

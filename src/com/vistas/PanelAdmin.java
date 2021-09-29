@@ -1,5 +1,6 @@
 package com.vistas;
 
+import com.entities.Diplomado;
 import com.entities.Programa;
 import com.entities.Linea;
 

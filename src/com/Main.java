@@ -1,5 +1,6 @@
 package com;
 
+import com.entities.Empresa;
 import com.vistas.PanelAdmin;
 import com.vistas.Portal;
 
