@@ -10,6 +10,7 @@ public class Main {
     }
 
     public static void cargarPortal(){
+        System.out.println();
         Portal portal = new Portal();
         portal.load();
     }
