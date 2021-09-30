@@ -3,27 +3,38 @@ package com.vistas;
 import javax.swing.*;
 
 public class Portal {
-    private JButton administradorButton;
-    private JButton alumnoButton;
+    private static Portal portal = new Portal();
+    private JButton cursosButton;
+    private JButton programasButton;
     private JFrame frame = new JFrame();
     private JPanel myPortal;
-    private PanelAdmin panelAdmin;
+    private JButton matriculasButton;
+    private JButton extraButton;
     private Login login;
+
+    private PortalCursos portalCursos;
 
 
     public Portal(){
-        administradorButton.addActionListener(e -> ingresarPanellAdmin()); //Ingresar a Panel Admin
-        alumnoButton.addActionListener(e -> IngresarPanelAlumno()); //Ingresar a Panel Alumno
+        cursosButton.addActionListener(e ->loadCursos());
+        //programasButton.addActionListener(e ->);
+        //matriculasButton.addActionListener(e->);
+        //extraButton.addActionListener(e->);
     }
 
-    public void ingresarPanellAdmin(){
-        this.panelAdmin = PanelAdmin.returnPanelAdmin();
-        this.panelAdmin.load();
+    public void loadCursos(){
+        portalCursos = PortalCursos.getInstance();
+        portalCursos.load();
+
     }
 
     public void IngresarPanelAlumno(){
-        this.login = Login.returnLogin();
-        this.login.load();
+//        this.login = Login.returnLogin();
+//        this.login.load();
+    }
+
+    public static Portal getInstance(){
+        return portal;
     }
 
     public void load(){
@@ -35,6 +46,5 @@ public class Portal {
         this.frame.setVisible(true);    // que sea visible
         this.frame.setResizable(false); // bloqueo cambiar tamaño de ventana
     }
-
 }
 

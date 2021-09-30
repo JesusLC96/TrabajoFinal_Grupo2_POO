@@ -1,4 +1,4 @@
-package com.vistas;
+package com.view;
 
 import com.entities.Alumno;
 
@@ -6,9 +6,9 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Login {
-    private static Login login = new Login();
-    private JPanel myLogin;
+public class Login_old {
+    private static Login_old loginOld = new Login_old();
+    private JPanel myLoginold;
     private JTextField textUser;
     private JPasswordField textPass;
     private JButton logInButton;
@@ -19,7 +19,7 @@ public class Login {
     private String nombreTemporal;
     private Alumno alumnoSesion;
 
-    public Login() {
+    public Login_old() {
         instanciarPortalRegistroAlumno();
         obtenerListaAlumnos();
         this.listausuarios = new ArrayList<>();
@@ -63,7 +63,7 @@ public class Login {
     }
 
     public void load(){
-        this.frame.add(myLogin); // agregar panel al objeto
+        this.frame.add(myLoginold); // agregar panel al objeto
         this.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // detener programa al cerrar
         this.frame.setUndecorated(false); // mostrar ventanas windows
         this.frame.pack();  //mostrar contenido
@@ -72,8 +72,8 @@ public class Login {
         this.frame.setResizable(false); // bloqueo cambiar tamaño de ventana
     }
 
-    public static Login returnLogin(){
-        return login;
+    public static Login_old returnLogin(){
+        return loginOld;
     }
 }
 

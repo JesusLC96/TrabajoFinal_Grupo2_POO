@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.vistas.Login">
-  <grid id="27dc6" binding="myLogin" layout-manager="GridBagLayout">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.view.Login_old">
+  <grid id="27dc6" binding="myLoginold" layout-manager="GridBagLayout">
     <constraints>
       <xy x="20" y="20" width="629" height="501"/>
     </constraints>
