@@ -1,48 +1,53 @@
 package com.vistas;
 
-import com.clases.CategoriaCurso;
+import com.entities.Empresa;
+import com.entities.Programa;
+import com.exceptions.ProgramasInvalidIndexValueException;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
 
-public class ModificarCurso {
-    private JPanel myModificarCurso;
-    private JTextField textModCategoria;
-    private JTextField textModCurso;
-    private JTextField textModVacantes;
-    private JTextField textModPrecio;
+
+public class ModificarPrograma {
+
+    private JPanel myModificarPrograma;
+    private JTextField textModPrograma;
+    private JTextField textModLinea;
+    private JTextField textModNombre;
+    private JTextField textModCantidad;
     private JButton buttonActualizarCurso;
     private JFrame frame = new JFrame();
-    private List<CategoriaCurso> listatemporal;
     private int index;
-    private PanelAdmin panelAdmin;
+    PortalProgramas portalProgramas;
 
-    public ModificarCurso(List<CategoriaCurso> lista,int indice) {
-        this.index = indice;
-        this.listatemporal = lista;
+    private Empresa empresa;
 
-        textModCategoria.setText(listatemporal.get(index).getNombreCategoria());
-        textModCurso.setText(listatemporal.get(index).getNombreCurso());
-        textModVacantes.setText(String.valueOf(listatemporal.get(index).getCantVacantes()));
-        textModPrecio.setText(String.valueOf(listatemporal.get(index).getPrecio()));
-        buttonActualizarCurso.addActionListener(e -> actualizarCurso());
+    public ModificarPrograma(int indice) {
+        this.index=indice;
+        empresa = Empresa.getInstance();
+        Programa programa = empresa.getProgramas().get(index);
+        textModPrograma.setText(programa.getClass().getSimpleName());
+        textModLinea.setText(programa.getLinea().toString());
+        textModNombre.setText(programa.getNombre());
+        textModCantidad.setText(String.valueOf(programa.getCantidadMaximaCursos()));
+
+        buttonActualizarCurso.addActionListener(e ->actualizarCurso());
 
     }
 
     public void actualizarCurso(){
-        String categoria = textModCategoria.getText();
-        String curso = textModCurso.getText();
-        int vacantes = Integer.parseInt(textModVacantes.getText());
-        double precio= Double.parseDouble(textModPrecio.getText());
-        this.panelAdmin = PanelAdmin.returnPanelAdmin();
-        this.panelAdmin.actualizarCurso(index,categoria,curso,vacantes,precio);
-        JOptionPane.showMessageDialog( null, "Se actualizó correctamente");
+        empresa = Empresa.getInstance();
+        try {
+            empresa.actualizarPrograma(index,textModNombre.getText(),Integer.parseInt(textModCantidad.getText()));
+        } catch (ProgramasInvalidIndexValueException e) {
+            System.out.println(e.getMessage());
+        }
+        portalProgramas = PortalProgramas.getInstance();
+        portalProgramas.listarPrograma();
 
     }
 
     public void load(){
-        this.frame.add(myModificarCurso); // agregar panel al objeto
+        this.frame.add(myModificarPrograma); // agregar panel al objeto
         this.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // detener programa al cerrar
         this.frame.setUndecorated(false); // mostrar ventanas windows
         this.frame.pack();  //mostrar contenido

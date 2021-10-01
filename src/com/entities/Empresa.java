@@ -1,39 +1,38 @@
 package com.entities;
 
-import com.factories.PersonaFactory;
+import com.exceptions.CursoExistsException;
+import com.exceptions.InvalidProgramTypeException;
+import com.exceptions.ProfesorExistsException;
+import com.exceptions.ProgramasInvalidIndexValueException;
 import com.factories.ProgramaFactory;
+import com.utils.LineaProgramaEnum;
+import com.utils.TipoProgramaEnum;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Empresa {
-    PersonaFactory personaFactory = new PersonaFactory();
-    ProgramaFactory programaFactory = new ProgramaFactory();
 
-    List<Persona> estudiantes;
-    List<Persona> profesores;
+    List<Profesor> profesores;
     List<Programa> programas;
     List<Curso> cursos;
+    List<Seccion> seccions;
 
     private static Empresa instance = new Empresa();
 
     private Empresa() {
-        this.estudiantes = new ArrayList<>();
-        this.profesores = new ArrayList<>();
         this.programas = new ArrayList<>();
         this.cursos = new ArrayList<>();
+        this.profesores = new ArrayList<>();
+        this.seccions = new ArrayList<>();
     }
 
     public static Empresa getInstance() {
         return instance;
     }
 
-    public List<Persona> getEstudiantes() {
-        return estudiantes;
-    }
-
-    public List<Persona> getProfesores() {
-        return profesores;
+    public List<Profesor> getProfesores() {
+        return this.profesores;
     }
 
     public List<Programa> getProgramas() {
@@ -44,31 +43,63 @@ public class Empresa {
         return cursos;
     }
 
-    public void crearEstudiante(String nombres, String apellidos, String documento) {
-        Persona estudiante = personaFactory.obtenerPersona("Estudiante",nombres, apellidos, documento);
-
-        estudiantes.add(estudiante);
+    public List<Seccion> getSeccions() {
+        return seccions;
     }
 
-    public void crearProfesor(String nombres, String apellidos, String documento) {
-        Persona profesor = personaFactory.obtenerPersona("Profesor",nombres, apellidos, documento);
-
-        profesores.add(profesor);
+    public void crearProfesor(String nombres, String apellidos, String documento) throws ProfesorExistsException {
+        if (profesores.stream().noneMatch(item -> item.getDocumento().equals(documento))) {
+            Profesor nuevoProfesor = new Profesor(nombres,apellidos,documento);
+            profesores.add(nuevoProfesor);
+        } else {
+            throw new ProfesorExistsException();
+        }
     }
 
-    public void crearPrograma(String tipoPrograma, String nombre, Linea linea, int cantidadMaximaCursos) {
-        Programa programa = programaFactory.obtenerPrograma(tipoPrograma, nombre, linea, cantidadMaximaCursos);
-
-        programas.add(programa);
+    public void crearPrograma(TipoProgramaEnum tipoPrograma, LineaProgramaEnum linea, String nombre, int cantidadMaximaCursos) throws InvalidProgramTypeException {
+        Programa programa;
+        switch (linea){
+            case BI:
+                programa = ProgramaFactory.obtenerPrograma(tipoPrograma,LineaProgramaEnum.BI, nombre, cantidadMaximaCursos);
+                programas.add(programa);
+                break;
+            case SAP:
+                programa = ProgramaFactory.obtenerPrograma(tipoPrograma,LineaProgramaEnum.SAP, nombre, cantidadMaximaCursos);
+                programas.add(programa);
+                break;
+            case EXCEL:
+                programa = ProgramaFactory.obtenerPrograma(tipoPrograma,LineaProgramaEnum.EXCEL, nombre, cantidadMaximaCursos);
+                programas.add(programa);
+                break;
+            case PMP:
+                programa = ProgramaFactory.obtenerPrograma(tipoPrograma,LineaProgramaEnum.PMP, nombre, cantidadMaximaCursos);
+                programas.add(programa);
+                break;
+            default:
+                throw new InvalidProgramTypeException();
+        }
     }
 
-    public void crearCurso(String nombre) {
-        Curso curso = new Curso(nombre);
-
-        cursos.add(curso);
+    public void actualizarPrograma(Integer index, String nuevoNombre,Integer nuevaCantidad) throws  ProgramasInvalidIndexValueException{
+        if (index < 0 || index > programas.size()) {
+            throw new ProgramasInvalidIndexValueException();
+        }
+        programas.get(index).setNombre(nuevoNombre);
+        programas.get(index).setCantidadMaximaCursos(nuevaCantidad);
     }
 
-    public void asignarCurso(Programa programa, Curso curso) {
-        programa.agregarCurso(curso);
+    public void crearCurso(String nombre) throws CursoExistsException {
+        if (cursos.stream().noneMatch(item -> item.getNombre().equals(nombre))) {
+            Curso nuevoCurso = new Curso(nombre);
+            cursos.add(nuevoCurso);
+        } else {
+            throw new CursoExistsException();
+        }
     }
+
+    public void crearSeccion(String codigo, Curso curso, Profesor profesor, int cantidad, int año){
+        Seccion seccion = new Seccion(codigo,curso,profesor,cantidad,año);
+        seccions.add(seccion);
+    }
+
 }

@@ -5,10 +5,18 @@ import java.util.List;
 
 public class Curso {
     private String nombre;
-    private List<Seccion> secciones;
 
     public Curso(String nombre) {
         this.nombre = nombre;
-        this.secciones = new ArrayList<>();
+    }
+
+    public Object[] getObjetRow() {
+        final Object[] row = new Object[1];
+        row[0] = nombre;
+        return row;
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 }

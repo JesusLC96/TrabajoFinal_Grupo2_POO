@@ -2,21 +2,20 @@ package com.factories;
 
 import com.entities.Diplomado;
 import com.entities.Especializacion;
-import com.entities.Linea;
 import com.entities.Programa;
+import com.exceptions.InvalidProgramTypeException;
+import com.utils.LineaProgramaEnum;
+import com.utils.TipoProgramaEnum;
 
 public class ProgramaFactory {
-    public Programa obtenerPrograma(String tipoPrograma, String nombre, Linea linea, int cantidadMaximaCursos){
-        if(tipoPrograma == null){
-            return null;
+    public static Programa obtenerPrograma(TipoProgramaEnum tipoPrograma, LineaProgramaEnum linea, String nombre, int cantidadMaximaCursos) throws InvalidProgramTypeException{
+        switch (tipoPrograma) {
+            case Diplomado:
+                return new Diplomado(linea, nombre,  cantidadMaximaCursos);
+            case Especialización:
+                return new Especializacion(linea, nombre,  cantidadMaximaCursos);
+            default:
+                throw new InvalidProgramTypeException();
         }
-        if(tipoPrograma.equalsIgnoreCase("Especialización")){
-            return new Especializacion(nombre, linea, cantidadMaximaCursos);
-
-        } else if(tipoPrograma.equalsIgnoreCase("Diplomado")){
-            return new Diplomado(nombre, linea, cantidadMaximaCursos);
-        }
-
-        return null;
     }
 }

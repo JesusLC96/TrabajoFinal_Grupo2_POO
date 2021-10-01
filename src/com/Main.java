@@ -1,16 +1,16 @@
 package com;
 
-import com.entities.Empresa;
-import com.vistas.PanelAdmin;
-import com.vistas.Portal;
+import com.vistas.Login;
 
 public class Main {
+
     public static void main(String[] args) {
-        cargarPortal();
+        loadLogin();
+        //test();
     }
 
-    public static void cargarPortal(){
-        Portal portal = new Portal();
-        portal.load();
+    public static void loadLogin(){
+        Login login = Login.getInstance();
+        login.load();
     }
 }

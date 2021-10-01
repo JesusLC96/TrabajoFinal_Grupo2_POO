@@ -1,14 +1,9 @@
 package com.entities;
 
-public class Especializacion extends Programa {
-    public Especializacion(String nombre, Linea linea, int cantidadMaximaCursos) {
-        super(nombre, linea, cantidadMaximaCursos);
-    }
+import com.utils.LineaProgramaEnum;
 
-    @Override
-    public void agregarCurso(Curso curso) {
-        if (getCursos().size() < getCantidadMaximaCursos()) {
-            super.agregarCurso(curso);
-        }
+public class Especializacion extends Programa {
+    public Especializacion(LineaProgramaEnum linea, String nombre, int cantidadMaximaCursos) {
+        super(linea,nombre, cantidadMaximaCursos);
     }
 }
