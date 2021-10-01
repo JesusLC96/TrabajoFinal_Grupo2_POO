@@ -2,6 +2,7 @@ package com.entities;
 
 import com.factories.ProgramaFactory;
 
+import javax.swing.*;
 import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class Empresa {
     }
 
     public List<Profesor> getProfesores() {
-        return profesores;
+        return this.profesores;
     }
 
     public List<Programa> getProgramas() {
@@ -43,9 +44,10 @@ public class Empresa {
     }
 
     public void crearProfesor(String nombres, String apellidos, String documento) {
-        //Persona profesor = personaFactory.obtenerPersona("Profesor",nombres, apellidos, documento);
-        Profesor profesor = new Profesor(nombres,apellidos,documento);
-        profesores.add(profesor);
+        if (profesores.stream().noneMatch(item -> item.getDocumento().equals(documento))) {
+            Profesor nuevoProfesor = new Profesor(nombres,apellidos,documento);
+            profesores.add(nuevoProfesor);
+        }
     }
 
     public void crearPrograma(String tipoPrograma, String linea, String nombre, int cantidadMaximaCursos) {
@@ -80,9 +82,13 @@ public class Empresa {
     }
 
     public void crearCurso(String nombre) {
-        Curso curso = new Curso(nombre);
+//        Curso curso = new Curso(nombre);
+//        cursos.add(curso);
 
-        cursos.add(curso);
+        if (cursos.stream().noneMatch(item -> item.getNombre().equals(nombre))) {
+            Curso nuevoCurso = new Curso(nombre);
+            cursos.add(nuevoCurso);
+        }
     }
 
     public void crearSeccion(String codigo, Curso curso, Profesor profesor, int cantidad, int año){
