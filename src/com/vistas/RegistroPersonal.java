@@ -7,37 +7,35 @@ import javax.swing.*;
 //
 public class RegistroPersonal {
     private static RegistroPersonal registroPersonal = new RegistroPersonal();
-    private JPanel myRegistroCurso;
-    public  JComboBox comboBoxTipoPrograma;
-    public  JComboBox comboBoxLinea;
-    public  JTextField textFieldNombrePrograma;
-    public  JTextField textFieldCantMaxCursos;
-    public  JButton registrarNuevoProgramaButton;
+    private JPanel myRegistroPersonal;
+    private JTextField textFieldNombres;
+    public  JTextField textFieldApellidos;
+    public  JTextField textFieldDocumento;
+
+    public  JButton registrarNuevoPersonalButton;
+
     private JFrame frame = new JFrame();
 
     Empresa empresa;
-    PortalProgramas portalProgramas;
-//    private Portal panelAdmin;
-//
-//    public static String a;
-//
+    PortalPersonal portalPersonal;
+
     private RegistroPersonal(){
-//
-        registrarNuevoProgramaButton.addActionListener(e -> enviarDatos());
+        registrarNuevoPersonalButton.addActionListener(e -> enviarDatos());
     }
-//
+
     public void enviarDatos(){
         empresa = Empresa.getInstance();
-        empresa.crearPrograma(comboBoxTipoPrograma.getSelectedItem().toString(),comboBoxLinea.getSelectedItem().toString(),textFieldNombrePrograma.getText(),Integer.parseInt(this.textFieldCantMaxCursos.getText()));
-        portalProgramas = PortalProgramas.getInstance();
-        portalProgramas.listarPrograma();
+        //empresa.crearPrograma(comboBoxTipoPrograma.getSelectedItem().toString(),comboBoxLinea.getSelectedItem().toString(),textFieldApellidos.getText(),Integer.parseInt(this.textFieldDocumento.getText()));
+        empresa.crearProfesor(textFieldNombres.getText(),textFieldApellidos.getText(),textFieldDocumento.getText());
+        portalPersonal = PortalPersonal.getInstance();
+        portalPersonal.listarPersonal();
     }
 //
     public static RegistroPersonal getInstance(){
         return registroPersonal;
     }
     public void load(){
-        this.frame.add(myRegistroCurso); // agregar panel al objeto
+        this.frame.add(myRegistroPersonal); // agregar panel al objeto
         this.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // detener programa al cerrar
         this.frame.setUndecorated(false); // mostrar ventanas windows
         this.frame.pack();  //mostrar contenido

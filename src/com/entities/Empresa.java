@@ -1,38 +1,30 @@
 package com.entities;
 
-import com.factories.PersonaFactory;
 import com.factories.ProgramaFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Empresa {
-    PersonaFactory personaFactory = new PersonaFactory();
-    ProgramaFactory programaFactory = new ProgramaFactory();
 
-    List<Persona> estudiantes;
-    List<Persona> profesores;
+    //List<Persona> profesores;
+    List<Profesor> profesores;
     List<Programa> programas;
     List<Curso> cursos;
 
     private static Empresa instance = new Empresa();
 
     private Empresa() {
-        this.estudiantes = new ArrayList<>();
-        this.profesores = new ArrayList<>();
         this.programas = new ArrayList<>();
         this.cursos = new ArrayList<>();
+        this.profesores = new ArrayList<>();
     }
 
     public static Empresa getInstance() {
         return instance;
     }
 
-    public List<Persona> getEstudiantes() {
-        return estudiantes;
-    }
-
-    public List<Persona> getProfesores() {
+    public List<Profesor> getProfesores() {
         return profesores;
     }
 
@@ -44,22 +36,41 @@ public class Empresa {
         return cursos;
     }
 
-    public void crearEstudiante(String nombres, String apellidos, String documento) {
-        Persona estudiante = personaFactory.obtenerPersona("Estudiante",nombres, apellidos, documento);
-
-        estudiantes.add(estudiante);
-    }
-
     public void crearProfesor(String nombres, String apellidos, String documento) {
-        Persona profesor = personaFactory.obtenerPersona("Profesor",nombres, apellidos, documento);
-
+        //Persona profesor = personaFactory.obtenerPersona("Profesor",nombres, apellidos, documento);
+        Profesor profesor = new Profesor(nombres,apellidos,documento);
         profesores.add(profesor);
     }
 
-    public void crearPrograma(String tipoPrograma, String nombre, Linea linea, int cantidadMaximaCursos) {
-        Programa programa = programaFactory.obtenerPrograma(tipoPrograma, nombre, linea, cantidadMaximaCursos);
+    public void crearPrograma(String tipoPrograma, String linea, String nombre, int cantidadMaximaCursos) {
+        Programa programa;
+        switch (linea){
+            case "BI":
+                programa = ProgramaFactory.obtenerPrograma(tipoPrograma,Linea.BI, nombre, cantidadMaximaCursos);
+                programas.add(programa);
+                break;
+            case "SAP":
+                programa = ProgramaFactory.obtenerPrograma(tipoPrograma,Linea.SAP, nombre, cantidadMaximaCursos);
+                programas.add(programa);
+                break;
+            case "EXCEL":
+                programa = ProgramaFactory.obtenerPrograma(tipoPrograma,Linea.EXCEL, nombre, cantidadMaximaCursos);
+                programas.add(programa);
+                break;
+            case "PMP":
+                programa = ProgramaFactory.obtenerPrograma(tipoPrograma,Linea.PMP, nombre, cantidadMaximaCursos);
+                programas.add(programa);
+                break;
+            default:
+                programa=null;
+        }
+//        Programa programa = ProgramaFactory.obtenerPrograma(tipoPrograma,Linea.SAP, nombre, cantidadMaximaCursos);
+//        programas.add(programa);
+    }
 
-        programas.add(programa);
+    public void actualizarPrograma(Integer index, String nuevoNombre,Integer nuevaCantidad){
+        programas.get(index).setNombre(nuevoNombre);
+        programas.get(index).setCantidadMaximaCursos(nuevaCantidad);
     }
 
     public void crearCurso(String nombre) {
@@ -71,4 +82,5 @@ public class Empresa {
     public void asignarCurso(Programa programa, Curso curso) {
         programa.agregarCurso(curso);
     }
+
 }

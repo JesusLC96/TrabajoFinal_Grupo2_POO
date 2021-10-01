@@ -1,8 +1,8 @@
 package com.entities;
 
 public class Especializacion extends Programa {
-    public Especializacion(String nombre, Linea linea, int cantidadMaximaCursos) {
-        super(nombre, linea, cantidadMaximaCursos);
+    public Especializacion(Linea linea, String nombre,  int cantidadMaximaCursos) {
+        super(linea,nombre, cantidadMaximaCursos);
     }
 
     @Override

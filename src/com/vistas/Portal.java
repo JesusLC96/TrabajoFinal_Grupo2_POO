@@ -4,28 +4,32 @@ import javax.swing.*;
 
 public class Portal {
     private static Portal portal = new Portal();
-    private JButton cursosButton;
+    private JButton personaButton;
     private JButton programasButton;
-    private JFrame frame = new JFrame();
-    private JPanel myPortal;
     private JButton matriculasButton;
     private JButton extraButton;
-    private Login login;
 
-    private PortalCursos portalCursos;
+    private JFrame frame = new JFrame();
+    private JPanel myPortal;
+    private PortalProgramas portalProgramas;
+    private PortalPersonal portalPersonal;
 
 
     public Portal(){
-        cursosButton.addActionListener(e ->loadCursos());
-        //programasButton.addActionListener(e ->);
+        programasButton.addActionListener(e -> loadPortalProgramas());
+        personaButton.addActionListener(e ->loadPortalPersonal());
         //matriculasButton.addActionListener(e->);
         //extraButton.addActionListener(e->);
     }
 
-    public void loadCursos(){
-        portalCursos = PortalCursos.getInstance();
-        portalCursos.load();
+    public void loadPortalProgramas(){
+        portalProgramas = PortalProgramas.getInstance();
+        portalProgramas.load();
+    }
 
+    public void loadPortalPersonal(){
+        portalPersonal = PortalPersonal.getInstance();
+        portalPersonal.load();
     }
 
     public void IngresarPanelAlumno(){

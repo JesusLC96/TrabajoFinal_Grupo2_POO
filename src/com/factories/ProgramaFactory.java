@@ -6,15 +6,15 @@ import com.entities.Linea;
 import com.entities.Programa;
 
 public class ProgramaFactory {
-    public Programa obtenerPrograma(String tipoPrograma, String nombre, Linea linea, int cantidadMaximaCursos){
+    public static Programa obtenerPrograma(String tipoPrograma, Linea linea, String nombre,  int cantidadMaximaCursos){
         if(tipoPrograma == null){
             return null;
         }
         if(tipoPrograma.equalsIgnoreCase("Especialización")){
-            return new Especializacion(nombre, linea, cantidadMaximaCursos);
+            return new Especializacion(linea, nombre,  cantidadMaximaCursos);
 
         } else if(tipoPrograma.equalsIgnoreCase("Diplomado")){
-            return new Diplomado(nombre, linea, cantidadMaximaCursos);
+            return new Diplomado(linea, nombre,  cantidadMaximaCursos);
         }
 
         return null;

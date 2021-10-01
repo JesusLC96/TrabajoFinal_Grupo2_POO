@@ -1,6 +1,7 @@
 package com.vistas;
 
 import com.entities.Empresa;
+import com.entities.Profesor;
 import com.entities.Programa;
 
 import javax.swing.*;
@@ -9,30 +10,26 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 
 public class PortalPersonal {
-    private static PortalPersonal panel = new PortalPersonal();
+    private static PortalPersonal portalPersonal = new PortalPersonal();
     private JFrame frame = new JFrame();
-    private JPanel myPortalProgramas;
+    private JPanel myPortalPersonal;
     private JButton registroButton;
     private JButton eliminarButton;
-    private JButton actualizarButton;
-    private JButton reporteButton;
     private JTable tablaProgramas;
     private DefaultTableModel tbmodel = (DefaultTableModel) tablaProgramas.getModel();
     TableRowSorter<DefaultTableModel> tr;
 
     private Empresa empresa;
-    private RegistroPrograma registroPrograma;
-    private ModificarPrograma modificarPrograma;
-
+    private RegistroPersonal registroPersonal;
     private PortalPersonal() {
-        listarPrograma();
-        registroButton.addActionListener(e -> registrarPrograma());
-        eliminarButton.addActionListener(e -> eliminarPrograma());
-        actualizarButton.addActionListener(e -> actualizarPrograma());
+        listarPersonal();
+        registroButton.addActionListener(e -> registroPersonal());
+        eliminarButton.addActionListener(e -> eliminarPersonal());
+
     }
 
-    public void listarPrograma(){
-        Object[] column = {"Programa","Línea","Nombre","Cantidad de Curso"};
+    public void listarPersonal(){
+        Object[] column = {"Nombres","Apellidos","Documento"};
         tbmodel.setColumnIdentifiers(column);
         tablaProgramas.setModel(tbmodel);
         tablaProgramas.setAutoCreateRowSorter(true);
@@ -46,9 +43,8 @@ public class PortalPersonal {
         }
 
         empresa = Empresa.getInstance();
-        for (Programa p:empresa.getProgramas()) {
+        for (Profesor p:empresa.getProfesores()) {
             final Object[] tbRow = p.getObjetRow();
-            tbRow[0] =p.getClass().getSimpleName();
             tbmodel.addRow(tbRow);
         }
 
@@ -60,23 +56,17 @@ public class PortalPersonal {
         tablaProgramas.setRowHeight(25);
     }
 
-    public void registrarPrograma(){
-        registroPrograma = RegistroPrograma.getInstance();
-        registroPrograma.load();
+    public void registroPersonal(){
+        registroPersonal = RegistroPersonal.getInstance();
+        registroPersonal.load();
     }
 
-    public void actualizarPrograma(){
-        int posicion = tablaProgramas.getSelectedRow();
-        ModificarPrograma modificarCurso = new ModificarPrograma(posicion);
-        modificarCurso.load();
-    }
-
-    public void eliminarPrograma(){
+    public void eliminarPersonal(){
         empresa = Empresa.getInstance();
         int posicion = tablaProgramas.getSelectedRow();
 
         if (posicion>=0){
-            empresa.getProgramas().remove(posicion);
+            empresa.getProfesores().remove(posicion);
             tbmodel.removeRow(posicion);
             JOptionPane.showMessageDialog( null, "Se elimino correctamente "+ posicion);
         }else {
@@ -85,11 +75,11 @@ public class PortalPersonal {
     }
 
     public static PortalPersonal getInstance(){
-        return panel;
+        return portalPersonal;
     }
 
     public void load(){
-        this.frame.add(myPortalProgramas); // agregar panel al objeto
+        this.frame.add(myPortalPersonal); // agregar panel al objeto
         this.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // detener programa al cerrar
         this.frame.setUndecorated(false); // mostrar ventanas windows
         this.frame.pack();  //mostrar contenido
