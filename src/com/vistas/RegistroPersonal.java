@@ -1,6 +1,7 @@
 package com.vistas;
 //
 import com.entities.Empresa;
+import com.exceptions.ProfesorExistsException;
 
 import javax.swing.*;
 
@@ -25,12 +26,15 @@ public class RegistroPersonal {
 
     public void enviarDatos(){
         empresa = Empresa.getInstance();
-        //empresa.crearPrograma(comboBoxTipoPrograma.getSelectedItem().toString(),comboBoxLinea.getSelectedItem().toString(),textFieldApellidos.getText(),Integer.parseInt(this.textFieldCapacidad.getText()));
-        empresa.crearProfesor(textFieldNombres.getText(),textFieldApellidos.getText(),textFieldDocumento.getText());
+        try {
+            empresa.crearProfesor(textFieldNombres.getText(),textFieldApellidos.getText(),textFieldDocumento.getText());
+        }catch (ProfesorExistsException e) {
+            System.out.println(e.getMessage());
+        }
         portalPersonal = PortalPersonal.getInstance();
         portalPersonal.listarPersonal();
     }
-//
+
     public static RegistroPersonal getInstance(){
         return registroPersonal;
     }

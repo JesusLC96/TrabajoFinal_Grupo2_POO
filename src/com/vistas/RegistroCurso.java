@@ -2,6 +2,7 @@ package com.vistas;
 //
 import com.entities.Empresa;
 import com.entities.Profesor;
+import com.exceptions.CursoExistsException;
 
 import javax.swing.*;
 import java.util.List;
@@ -32,8 +33,11 @@ public class RegistroCurso {
 
     public void enviarDatos(){
         empresa = Empresa.getInstance();
-        //empresa.crearPrograma(comboBoxTipoPrograma.getSelectedItem().toString(),comboBoxLinea.getSelectedItem().toString(),textFieldApellidos.getText(),Integer.parseInt(this.textFieldCapacidad.getText()));
-        empresa.crearCurso(textFieldCurso.getText());
+        try {
+            empresa.crearCurso(textFieldCurso.getText());
+        } catch (CursoExistsException e) {
+            System.out.println(e.getMessage());
+        }
         portalCurso = PortalCurso.getInstance();
         portalCurso.listarCursos();
     }

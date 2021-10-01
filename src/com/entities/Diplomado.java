@@ -1,7 +1,9 @@
 package com.entities;
 
+import com.utils.LineaProgramaEnum;
+
 public class Diplomado extends Programa {
-    public Diplomado(Linea linea,String nombre,  int cantidadMaximaCursos) {
+    public Diplomado(LineaProgramaEnum linea, String nombre, int cantidadMaximaCursos) {
         super(linea,nombre, cantidadMaximaCursos);
     }
 }

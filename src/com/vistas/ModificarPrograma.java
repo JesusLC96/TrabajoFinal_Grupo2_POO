@@ -2,6 +2,8 @@ package com.vistas;
 
 import com.entities.Empresa;
 import com.entities.Programa;
+import com.exceptions.ProgramasInvalidIndexValueException;
+
 import javax.swing.*;
 
 
@@ -34,7 +36,11 @@ public class ModificarPrograma {
 
     public void actualizarCurso(){
         empresa = Empresa.getInstance();
-        empresa.actualizarPrograma(index,textModNombre.getText(),Integer.parseInt(textModCantidad.getText()));
+        try {
+            empresa.actualizarPrograma(index,textModNombre.getText(),Integer.parseInt(textModCantidad.getText()));
+        } catch (ProgramasInvalidIndexValueException e) {
+            System.out.println(e.getMessage());
+        }
         portalProgramas = PortalProgramas.getInstance();
         portalProgramas.listarPrograma();
 

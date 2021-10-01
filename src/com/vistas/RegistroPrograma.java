@@ -1,6 +1,9 @@
 package com.vistas;
 //
 import com.entities.Empresa;
+import com.exceptions.InvalidProgramTypeException;
+import com.utils.LineaProgramaEnum;
+import com.utils.TipoProgramaEnum;
 
 import javax.swing.*;
 
@@ -19,20 +22,24 @@ public class RegistroPrograma {
     PortalProgramas portalProgramas;
 
     private RegistroPrograma(){
-//
         registrarNuevoProgramaButton.addActionListener(e -> enviarDatos());
     }
-//
+
     public void enviarDatos(){
         empresa = Empresa.getInstance();
-        empresa.crearPrograma(comboBoxTipoPrograma.getSelectedItem().toString(),comboBoxLinea.getSelectedItem().toString(),textFieldNombrePrograma.getText(),Integer.parseInt(this.textFieldCantMaxCursos.getText()));
+        try {
+            empresa.crearPrograma(TipoProgramaEnum.valueOf(comboBoxTipoPrograma.getSelectedItem().toString()), LineaProgramaEnum.valueOf(comboBoxLinea.getSelectedItem().toString()),textFieldNombrePrograma.getText(),Integer.parseInt(this.textFieldCantMaxCursos.getText()));
+        } catch (InvalidProgramTypeException e) {
+            System.out.println(e.getMessage());
+        }
         portalProgramas = PortalProgramas.getInstance();
         portalProgramas.listarPrograma();
     }
-//
+
     public static RegistroPrograma getInstance(){
         return registroPrograma;
     }
+
     public void load(){
         this.frame.add(myRegistroPrograma); // agregar panel al objeto
         this.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // detener programa al cerrar

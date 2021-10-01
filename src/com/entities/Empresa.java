@@ -1,10 +1,13 @@
 package com.entities;
 
+import com.exceptions.CursoExistsException;
+import com.exceptions.InvalidProgramTypeException;
+import com.exceptions.ProfesorExistsException;
+import com.exceptions.ProgramasInvalidIndexValueException;
 import com.factories.ProgramaFactory;
-import com.utils.TipoPersonaEnum;
+import com.utils.LineaProgramaEnum;
+import com.utils.TipoProgramaEnum;
 
-import javax.swing.*;
-import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,51 +47,53 @@ public class Empresa {
         return seccions;
     }
 
-    public void crearProfesor(String nombres, String apellidos, String documento) {
+    public void crearProfesor(String nombres, String apellidos, String documento) throws ProfesorExistsException {
         if (profesores.stream().noneMatch(item -> item.getDocumento().equals(documento))) {
             Profesor nuevoProfesor = new Profesor(nombres,apellidos,documento);
             profesores.add(nuevoProfesor);
+        } else {
+            throw new ProfesorExistsException();
         }
     }
 
-    public void crearPrograma(String tipoPrograma, String linea, String nombre, int cantidadMaximaCursos) {
+    public void crearPrograma(TipoProgramaEnum tipoPrograma, LineaProgramaEnum linea, String nombre, int cantidadMaximaCursos) throws InvalidProgramTypeException {
         Programa programa;
         switch (linea){
-            case "BI":
-                programa = ProgramaFactory.obtenerPrograma(tipoPrograma,Linea.BI, nombre, cantidadMaximaCursos);
+            case BI:
+                programa = ProgramaFactory.obtenerPrograma(tipoPrograma,LineaProgramaEnum.BI, nombre, cantidadMaximaCursos);
                 programas.add(programa);
                 break;
-            case "SAP":
-                programa = ProgramaFactory.obtenerPrograma(tipoPrograma,Linea.SAP, nombre, cantidadMaximaCursos);
+            case SAP:
+                programa = ProgramaFactory.obtenerPrograma(tipoPrograma,LineaProgramaEnum.SAP, nombre, cantidadMaximaCursos);
                 programas.add(programa);
                 break;
-            case "EXCEL":
-                programa = ProgramaFactory.obtenerPrograma(tipoPrograma,Linea.EXCEL, nombre, cantidadMaximaCursos);
+            case EXCEL:
+                programa = ProgramaFactory.obtenerPrograma(tipoPrograma,LineaProgramaEnum.EXCEL, nombre, cantidadMaximaCursos);
                 programas.add(programa);
                 break;
-            case "PMP":
-                programa = ProgramaFactory.obtenerPrograma(tipoPrograma,Linea.PMP, nombre, cantidadMaximaCursos);
+            case PMP:
+                programa = ProgramaFactory.obtenerPrograma(tipoPrograma,LineaProgramaEnum.PMP, nombre, cantidadMaximaCursos);
                 programas.add(programa);
                 break;
             default:
-                programa=null;
+                throw new InvalidProgramTypeException();
         }
-//        Programa programa = ProgramaFactory.obtenerPrograma(tipoPrograma,Linea.SAP, nombre, cantidadMaximaCursos);
-//        programas.add(programa);
     }
 
-    public void actualizarPrograma(Integer index, String nuevoNombre,Integer nuevaCantidad){
+    public void actualizarPrograma(Integer index, String nuevoNombre,Integer nuevaCantidad) throws  ProgramasInvalidIndexValueException{
+        if (index < 0 || index > programas.size()) {
+            throw new ProgramasInvalidIndexValueException();
+        }
         programas.get(index).setNombre(nuevoNombre);
         programas.get(index).setCantidadMaximaCursos(nuevaCantidad);
     }
 
-    public void crearCurso(String nombre) {
-//        Curso curso = new Curso(nombre);
-//        cursos.add(curso);
-
+    public void crearCurso(String nombre) throws CursoExistsException {
         if (cursos.stream().noneMatch(item -> item.getNombre().equals(nombre))) {
             Curso nuevoCurso = new Curso(nombre);
             cursos.add(nuevoCurso);
+        } else {
+            throw new CursoExistsException();
         }
     }
 

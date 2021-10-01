@@ -1,6 +1,6 @@
 package com.entities;
 
-import com.exceptions.MaximumCursosLimitReachedException;
+import com.utils.LineaProgramaEnum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,10 +8,10 @@ import java.util.List;
 public class Programa {
     private String nombre;
     private int cantidadMaximaCursos;
-    private Linea linea;
+    private LineaProgramaEnum linea;
     private List<Seccion> seccions;
 
-    public Programa(Linea linea, String nombre,  int cantidadMaximaCursos) {
+    public Programa(LineaProgramaEnum linea, String nombre,  int cantidadMaximaCursos) {
         this.nombre = nombre;
         this.cantidadMaximaCursos = cantidadMaximaCursos;
         this.linea=linea;
@@ -53,11 +53,11 @@ public class Programa {
         this.cantidadMaximaCursos = cantidadMaximaCursos;
     }
 
-    public Linea getLinea() {
+    public LineaProgramaEnum getLinea() {
         return linea;
     }
 
-    public void setLinea(Linea linea) {
+    public void setLinea(LineaProgramaEnum linea) {
         this.linea = linea;
     }
 }
