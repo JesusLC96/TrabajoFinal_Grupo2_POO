@@ -1,7 +1,7 @@
 package com.vistas;
 
-import com.entities.Curso;
 import com.entities.Empresa;
+import com.entities.Seccion;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -14,28 +14,27 @@ public class PortalSeccion {
     private JPanel myPortalCursos;
     private JButton registroButton;
     private JButton eliminarButton;
-    private JTable tablaProgramas;
-    private DefaultTableModel tbmodel = (DefaultTableModel) tablaProgramas.getModel();
+    private JTable tablaSecciones;
+    private DefaultTableModel tbmodel = (DefaultTableModel) tablaSecciones.getModel();
     TableRowSorter<DefaultTableModel> tr;
 
-    private RegistroCurso registroCurso;
-
+    //private RegistroSeccion registroSeccion;
     private Empresa empresa;
-    private RegistroPersonal registroPersonal;
+
     private PortalSeccion() {
-        listarCursos();
-        registroButton.addActionListener(e -> registroCurso());
-        eliminarButton.addActionListener(e -> eliminarPersonal());
+        listarSecciones();
+        registroButton.addActionListener(e -> registroSeccion());
+        eliminarButton.addActionListener(e -> eliminarSeccion());
 
     }
 
-    public void listarCursos(){
-        Object[] column = {"Nombre"};
+    public void listarSecciones(){
+        Object[] column = {"Código","Curso","Profesor","Cantidad","Año"};
         tbmodel.setColumnIdentifiers(column);
-        tablaProgramas.setModel(tbmodel);
-        tablaProgramas.setAutoCreateRowSorter(true);
+        tablaSecciones.setModel(tbmodel);
+        tablaSecciones.setAutoCreateRowSorter(true);
         tr = new TableRowSorter<>(tbmodel);
-        tablaProgramas.setRowSorter(tr);
+        tablaSecciones.setRowSorter(tr);
 
         ////
         int rowCount = tbmodel.getRowCount();
@@ -44,30 +43,30 @@ public class PortalSeccion {
         }
 
         empresa = Empresa.getInstance();
-        for (Curso c:empresa.getCursos()) {
-            final Object[] tbRow = c.getObjetRow();
+        for (Seccion s:empresa.getSeccions()) {
+            final Object[] tbRow = s.getObjetRow();
             tbmodel.addRow(tbRow);
         }
 
         //Estilos tabla Cursos
-        tablaProgramas.getTableHeader().setFont(new Font("Segoe UI",Font.BOLD,12));
-        tablaProgramas.getTableHeader().setEnabled(false);
-        tablaProgramas.getTableHeader().setOpaque(false);
-        tablaProgramas.getTableHeader().setBackground(new Color(78,145,140));
-        tablaProgramas.setRowHeight(25);
+        tablaSecciones.getTableHeader().setFont(new Font("Segoe UI",Font.BOLD,12));
+        tablaSecciones.getTableHeader().setEnabled(false);
+        tablaSecciones.getTableHeader().setOpaque(false);
+        tablaSecciones.getTableHeader().setBackground(new Color(78,145,140));
+        tablaSecciones.setRowHeight(25);
     }
 
-    public void registroCurso(){
-        registroCurso = RegistroCurso.getInstance();
-        registroCurso.load();
+    public void registroSeccion(){
+        RegistroSeccion registroSeccion = new RegistroSeccion();
+        registroSeccion.load();
     }
 
-    public void eliminarPersonal(){
+    public void eliminarSeccion(){
         empresa = Empresa.getInstance();
-        int posicion = tablaProgramas.getSelectedRow();
+        int posicion = tablaSecciones.getSelectedRow();
 
         if (posicion>=0){
-            empresa.getProfesores().remove(posicion);
+            empresa.getSeccions().remove(posicion);
             tbmodel.removeRow(posicion);
             JOptionPane.showMessageDialog( null, "Se elimino correctamente "+ posicion);
         }else {

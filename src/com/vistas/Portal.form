@@ -110,12 +110,12 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="44e54" class="javax.swing.JButton" binding="matriculasButton">
+          <component id="44e54" class="javax.swing.JButton" binding="seccionesButton">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Gestión de Matrículas"/>
+              <text value="Gestión de Secciones"/>
             </properties>
           </component>
           <component id="31a3" class="javax.swing.JLabel">
@@ -123,7 +123,7 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Matrículas"/>
+              <text value="Secciones"/>
             </properties>
           </component>
         </children>
@@ -139,12 +139,12 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="86ba7" class="javax.swing.JButton" binding="extraButton" default-binding="true">
+          <component id="86ba7" class="javax.swing.JButton" binding="gestiónDeCursosButton" default-binding="true">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Extra"/>
+              <text value="Gestión de Cursos"/>
             </properties>
           </component>
           <component id="6ea7e" class="javax.swing.JLabel">
@@ -152,7 +152,7 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Extras"/>
+              <text value="Cursos"/>
             </properties>
           </component>
         </children>

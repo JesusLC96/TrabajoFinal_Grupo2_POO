@@ -2,15 +2,16 @@ package com.entities;
 
 import com.factories.ProgramaFactory;
 
+import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Empresa {
 
-    //List<Persona> profesores;
     List<Profesor> profesores;
     List<Programa> programas;
     List<Curso> cursos;
+    List<Seccion> seccions;
 
     private static Empresa instance = new Empresa();
 
@@ -18,6 +19,7 @@ public class Empresa {
         this.programas = new ArrayList<>();
         this.cursos = new ArrayList<>();
         this.profesores = new ArrayList<>();
+        this.seccions = new ArrayList<>();
     }
 
     public static Empresa getInstance() {
@@ -34,6 +36,10 @@ public class Empresa {
 
     public List<Curso> getCursos() {
         return cursos;
+    }
+
+    public List<Seccion> getSeccions() {
+        return seccions;
     }
 
     public void crearProfesor(String nombres, String apellidos, String documento) {
@@ -79,8 +85,9 @@ public class Empresa {
         cursos.add(curso);
     }
 
-    public void asignarCurso(Programa programa, Curso curso) {
-        programa.agregarCurso(curso);
+    public void crearSeccion(String codigo, Curso curso, Profesor profesor, int cantidad, int año){
+        Seccion seccion = new Seccion(codigo,curso,profesor,cantidad,año);
+        seccions.add(seccion);
     }
 
 }

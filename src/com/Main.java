@@ -1,19 +1,15 @@
 package com;
 
-import com.entities.Especializacion;
-import com.entities.Linea;
-import com.entities.Programa;
 import com.vistas.Login;
-import com.vistas.Portal;
 
 public class Main {
 
     public static void main(String[] args) {
-        cargarPortal();
+        loadLogin();
         //test();
     }
 
-    public static void cargarPortal(){
+    public static void loadLogin(){
         Login login = Login.getInstance();
         login.load();
     }

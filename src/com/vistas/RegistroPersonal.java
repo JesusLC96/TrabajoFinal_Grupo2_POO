@@ -25,7 +25,7 @@ public class RegistroPersonal {
 
     public void enviarDatos(){
         empresa = Empresa.getInstance();
-        //empresa.crearPrograma(comboBoxTipoPrograma.getSelectedItem().toString(),comboBoxLinea.getSelectedItem().toString(),textFieldApellidos.getText(),Integer.parseInt(this.textFieldDocumento.getText()));
+        //empresa.crearPrograma(comboBoxTipoPrograma.getSelectedItem().toString(),comboBoxLinea.getSelectedItem().toString(),textFieldApellidos.getText(),Integer.parseInt(this.textFieldCapacidad.getText()));
         empresa.crearProfesor(textFieldNombres.getText(),textFieldApellidos.getText(),textFieldDocumento.getText());
         portalPersonal = PortalPersonal.getInstance();
         portalPersonal.listarPersonal();

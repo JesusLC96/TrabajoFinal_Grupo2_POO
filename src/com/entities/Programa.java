@@ -7,21 +7,21 @@ public class Programa {
     private String nombre;
     private int cantidadMaximaCursos;
     private Linea linea;
-    private List<Curso> cursos;
+    private List<Seccion> seccions;
 
     public Programa(Linea linea, String nombre,  int cantidadMaximaCursos) {
         this.nombre = nombre;
         this.cantidadMaximaCursos = cantidadMaximaCursos;
         this.linea=linea;
-        this.cursos = new ArrayList<>();
+        this.seccions = new ArrayList<>();
     }
 
-    public List<Curso> getCursos() {
-        return cursos;
+    public List<Seccion> getSecciones() {
+        return seccions;
     }
 
-    public void agregarCurso(Curso curso) {
-        this.cursos.add(curso);
+    public void asignarSeccion(Seccion seccion) {
+        this.seccions.add(seccion);
     }
 
     public Object[] getObjetRow() {

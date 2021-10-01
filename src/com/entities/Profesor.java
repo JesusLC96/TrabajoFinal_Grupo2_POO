@@ -19,4 +19,8 @@ public class Profesor {//extends Persona {
         row[2] = documento;
         return row;
     }
+
+    public String getNombres() {
+        return nombres;
+    }
 }

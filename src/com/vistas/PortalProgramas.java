@@ -15,8 +15,9 @@ public class PortalProgramas {
     private JButton registroButton;
     private JButton eliminarButton;
     private JButton actualizarButton;
-    private JButton reporteButton;
+    private JButton asignarSecciónButton;
     private JTable tablaProgramas;
+    private JButton reporteButton;
     private DefaultTableModel tbmodel = (DefaultTableModel) tablaProgramas.getModel();
     TableRowSorter<DefaultTableModel> tr;
 
@@ -29,6 +30,8 @@ public class PortalProgramas {
         registroButton.addActionListener(e -> registrarPrograma());
         eliminarButton.addActionListener(e -> eliminarPrograma());
         actualizarButton.addActionListener(e -> actualizarPrograma());
+        asignarSecciónButton.addActionListener(e ->asignarSeccionPrograma());
+        reporteButton.addActionListener(e -> revisarReporte());
     }
 
     public void listarPrograma(){
@@ -83,6 +86,19 @@ public class PortalProgramas {
             JOptionPane.showMessageDialog( null, "Error al eliminar");
         }
     }
+
+    public void asignarSeccionPrograma(){
+        int posicion = tablaProgramas.getSelectedRow();
+        ListaSecciones listaSecciones = new ListaSecciones(posicion);
+        listaSecciones.load();
+    }
+
+    public void revisarReporte(){
+        int posicion = tablaProgramas.getSelectedRow();
+        ReportePrograma reportePrograma = new ReportePrograma(posicion);
+        reportePrograma.load();
+    }
+
 
     public static PortalProgramas getInstance(){
         return portalProgramas;

@@ -1,41 +1,48 @@
 package com.vistas;
 //
 import com.entities.Empresa;
+import com.entities.Profesor;
 
 import javax.swing.*;
+import java.util.List;
 
 //
 public class RegistroCurso {
     private static RegistroCurso registroCurso = new RegistroCurso();
-    private JPanel myRegistroPersonal;
-    private JTextField textFieldNombres;
-    public  JTextField textFieldApellidos;
-    public  JTextField textFieldDocumento;
+    private JPanel myRegistroCurso;
+    private JTextField textFieldCurso;
+
 
     public  JButton registrarNuevoPersonalButton;
+    //private JComboBox pruebacombo;
 
     private JFrame frame = new JFrame();
 
     Empresa empresa;
-    PortalPersonal portalPersonal;
+    PortalCurso portalCurso;
 
     private RegistroCurso(){
         registrarNuevoPersonalButton.addActionListener(e -> enviarDatos());
+
+        empresa = Empresa.getInstance();
+        List<Profesor> profe = empresa.getProfesores();
+
+        //pruebacombo.setModel(new DefaultComboBoxModel<Profesor>(profe.toArray(new Profesor[0])));
     }
 
     public void enviarDatos(){
         empresa = Empresa.getInstance();
-        //empresa.crearPrograma(comboBoxTipoPrograma.getSelectedItem().toString(),comboBoxLinea.getSelectedItem().toString(),textFieldApellidos.getText(),Integer.parseInt(this.textFieldDocumento.getText()));
-        empresa.crearProfesor(textFieldNombres.getText(),textFieldApellidos.getText(),textFieldDocumento.getText());
-        portalPersonal = PortalPersonal.getInstance();
-        portalPersonal.listarPersonal();
+        //empresa.crearPrograma(comboBoxTipoPrograma.getSelectedItem().toString(),comboBoxLinea.getSelectedItem().toString(),textFieldApellidos.getText(),Integer.parseInt(this.textFieldCapacidad.getText()));
+        empresa.crearCurso(textFieldCurso.getText());
+        portalCurso = PortalCurso.getInstance();
+        portalCurso.listarCursos();
     }
 //
     public static RegistroCurso getInstance(){
         return registroCurso;
     }
     public void load(){
-        this.frame.add(myRegistroPersonal); // agregar panel al objeto
+        this.frame.add(myRegistroCurso); // agregar panel al objeto
         this.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // detener programa al cerrar
         this.frame.setUndecorated(false); // mostrar ventanas windows
         this.frame.pack();  //mostrar contenido

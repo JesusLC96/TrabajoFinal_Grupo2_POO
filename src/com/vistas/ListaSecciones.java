@@ -1,6 +1,7 @@
 package com.vistas;
 
 import com.entities.Empresa;
+import com.entities.Programa;
 import com.entities.Seccion;
 
 import javax.swing.*;
@@ -9,27 +10,28 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 
 public class ListaSecciones {
-    private static ListaSecciones listaSecciones = new ListaSecciones();
+    //private static ListaSecciones listaSecciones = new ListaSecciones();
     private JFrame frame = new JFrame();
-    private JPanel myPortalCursos;
-    private JButton registroButton;
-    private JButton eliminarButton;
+    private JPanel myListaSecciones;
+    private JButton asignarButton;
     private JTable tablaSecciones;
     private DefaultTableModel tbmodel = (DefaultTableModel) tablaSecciones.getModel();
     TableRowSorter<DefaultTableModel> tr;
 
-    //private RegistroSeccion registroSeccion;
+    private Programa programa;
+    private Seccion seccion;
+
     private Empresa empresa;
 
-    private ListaSecciones() {
+    public ListaSecciones(int index) {
         listarSecciones();
-        registroButton.addActionListener(e -> registroSeccion());
-        eliminarButton.addActionListener(e -> eliminarSeccion());
+        programa = empresa.getProgramas().get(index);
+        asignarButton.addActionListener(e -> asignarSeccion());
 
     }
 
     public void listarSecciones(){
-        Object[] column = {"Curso","Profesor","Cantidad","Año"};
+        Object[] column = {"Código","Curso","Profesor","Cantidad","Año"};
         tbmodel.setColumnIdentifiers(column);
         tablaSecciones.setModel(tbmodel);
         tablaSecciones.setAutoCreateRowSorter(true);
@@ -56,31 +58,15 @@ public class ListaSecciones {
         tablaSecciones.setRowHeight(25);
     }
 
-    public void registroSeccion(){
-        RegistroSeccion registroSeccion = new RegistroSeccion();
-        //registroSeccion = RegistroSeccion.getInstance();
-        registroSeccion.load();
-    }
-
-    public void eliminarSeccion(){
-        empresa = Empresa.getInstance();
+    public void asignarSeccion(){
         int posicion = tablaSecciones.getSelectedRow();
-
-        if (posicion>=0){
-            empresa.getSeccions().remove(posicion);
-            tbmodel.removeRow(posicion);
-            JOptionPane.showMessageDialog( null, "Se elimino correctamente "+ posicion);
-        }else {
-            JOptionPane.showMessageDialog( null, "Error al eliminar");
-        }
-    }
-
-    public static ListaSecciones getInstance(){
-        return listaSecciones;
+        empresa = Empresa.getInstance();
+        programa.asignarSeccion(empresa.getSeccions().get(posicion));
+        JOptionPane.showMessageDialog( null, "Registro Realizado");
     }
 
     public void load(){
-        this.frame.add(myPortalCursos); // agregar panel al objeto
+        this.frame.add(myListaSecciones); // agregar panel al objeto
         this.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // detener programa al cerrar
         this.frame.setUndecorated(false); // mostrar ventanas windows
         this.frame.pack();  //mostrar contenido

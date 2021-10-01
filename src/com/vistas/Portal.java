@@ -6,20 +6,21 @@ public class Portal {
     private static Portal portal = new Portal();
     private JButton personaButton;
     private JButton programasButton;
-    private JButton matriculasButton;
-    private JButton extraButton;
+    private JButton seccionesButton;
+    private JButton gestiónDeCursosButton;
 
     private JFrame frame = new JFrame();
     private JPanel myPortal;
     private PortalProgramas portalProgramas;
     private PortalPersonal portalPersonal;
-
+    private PortalCurso portalCurso;
+    private PortalSeccion portalSeccion;
 
     public Portal(){
         programasButton.addActionListener(e -> loadPortalProgramas());
         personaButton.addActionListener(e ->loadPortalPersonal());
-        //matriculasButton.addActionListener(e->);
-        //extraButton.addActionListener(e->);
+        seccionesButton.addActionListener(e->loadPortalSecciones());
+        gestiónDeCursosButton.addActionListener(e-> loadPortalCurso());
     }
 
     public void loadPortalProgramas(){
@@ -32,9 +33,14 @@ public class Portal {
         portalPersonal.load();
     }
 
-    public void IngresarPanelAlumno(){
-//        this.login = Login.returnLogin();
-//        this.login.load();
+    public void loadPortalCurso(){
+        portalCurso = PortalCurso.getInstance();
+        portalCurso.load();
+    }
+
+    public void loadPortalSecciones(){
+        portalSeccion = PortalSeccion.getInstance();
+        portalSeccion.load();
     }
 
     public static Portal getInstance(){
