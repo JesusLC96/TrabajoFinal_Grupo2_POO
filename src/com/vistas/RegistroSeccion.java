@@ -3,6 +3,8 @@ package com.vistas;
 import com.entities.Curso;
 import com.entities.Empresa;
 import com.entities.Profesor;
+import com.renders.CursoComboBoxRender;
+import com.renders.ProfesorComboBoxRender;
 
 import javax.swing.*;
 
@@ -11,8 +13,8 @@ public class RegistroSeccion {
     private JPanel myRegistroPersonal;
     public  JTextField textFieldCapacidad;
     private JComboBox comboBoxAño;
-    private JComboBox comboBoxCursos;
-    private JComboBox comboBoxProfesores;
+    private JComboBox<Curso> comboBoxCursos;
+    private JComboBox<Profesor> comboBoxProfesores;
 
     private JFrame frame = new JFrame();
     public  JButton registrarNuevaSeccionButton;
@@ -26,16 +28,11 @@ public class RegistroSeccion {
     public RegistroSeccion(){
         empresa = Empresa.getInstance();
 
-        for(Curso c:empresa.getCursos()){
-            comboBoxCursos.addItem(c.getNombre());
-        }
+        comboBoxCursos.setModel(new DefaultComboBoxModel<Curso>(empresa.getCursos().toArray(new Curso[0])));
+        comboBoxCursos.setRenderer(new CursoComboBoxRender());
 
-        for(Profesor p:empresa.getProfesores()){
-            comboBoxProfesores.addItem(p.getNombres());
-        }
-
-        //comboBoxCursos.setModel(new DefaultComboBoxModel<Curso>(empresa.getCursos().toArray(new Curso[0])));
-        //comboBoxProfesores.setModel(new DefaultComboBoxModel<Profesor>(empresa.getProfesores().toArray(new Profesor[0])));
+        comboBoxProfesores.setModel(new DefaultComboBoxModel<Profesor>(empresa.getProfesores().toArray(new Profesor[0])));
+        comboBoxProfesores.setRenderer(new ProfesorComboBoxRender());
 
         registrarNuevaSeccionButton.addActionListener(e -> enviarDatos());
     }
@@ -43,17 +40,8 @@ public class RegistroSeccion {
     public void enviarDatos(){
         empresa = Empresa.getInstance();
 
-        for(Curso c:empresa.getCursos()){
-            if (c.getNombre().equals(comboBoxCursos.getSelectedItem().toString())){
-                curso = c;
-            }
-        }
-
-        for(Profesor p:empresa.getProfesores()){
-            if (p.getNombres().equals(comboBoxProfesores.getSelectedItem().toString())){
-                profesor = p;
-            }
-        }
+        Curso curso = Curso.class.cast(comboBoxCursos.getSelectedItem());
+        Profesor profesor = Profesor.class.cast(comboBoxProfesores.getSelectedItem());
 
         empresa.crearSeccion(textFieldCodigo.getText(),curso,profesor,Integer.parseInt(this.textFieldCapacidad.getText()),Integer.parseInt(comboBoxAño.getSelectedItem().toString()));
 

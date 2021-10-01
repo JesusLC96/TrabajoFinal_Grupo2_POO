@@ -23,4 +23,12 @@ public class Profesor {//extends Persona {
     public String getNombres() {
         return nombres;
     }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
 }
