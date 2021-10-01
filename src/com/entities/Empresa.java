@@ -1,6 +1,7 @@
 package com.entities;
 
 import com.factories.ProgramaFactory;
+import com.utils.TipoPersonaEnum;
 
 import javax.swing.*;
 import java.awt.image.AreaAveragingScaleFilter;

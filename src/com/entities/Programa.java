@@ -1,5 +1,7 @@
 package com.entities;
 
+import com.exceptions.MaximumCursosLimitReachedException;
+
 import java.util.ArrayList;
 import java.util.List;
 
